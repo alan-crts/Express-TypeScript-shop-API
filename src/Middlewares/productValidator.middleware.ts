@@ -24,4 +24,8 @@ const updateProductValidator = [
     body('price').custom(isNumeric).optional(),
 ];
 
-export { createProductValidator, updateProductValidator };
+const getOrDeleteProductValidator = [
+    param('id').isInt()
+];
+
+export { createProductValidator, updateProductValidator, getOrDeleteProductValidator };

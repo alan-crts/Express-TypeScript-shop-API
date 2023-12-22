@@ -41,6 +41,31 @@ export const getUser = async (req: Request, res: Response) => {
     }
 }
 
+export const createUser = async (req: Request, res: Response) => {
+    const { firstname, lastname, email, password, role } = req.body;
+
+    try {
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await prisma.user.create({
+            data: {
+                firstname,
+                lastname,
+                email,
+                password: encryptedPassword,
+                role,
+            },
+        });
+
+        const userWithoutPassword : any = newUser;
+        delete userWithoutPassword.password;
+
+        res.status(201).send(userWithoutPassword);
+    } catch(error) {
+        res.status(500).send(error);
+    }
+}
+
 export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { firstname, lastname, email, password, role } = req.body;

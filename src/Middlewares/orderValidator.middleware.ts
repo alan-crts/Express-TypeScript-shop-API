@@ -37,4 +37,8 @@ const updateOrderValidator = [
     body('products.*.quantity').custom(isNumeric).optional(),
 ];
 
-export { createOrderValidator, updateOrderValidator };
+const getOrDeleteOrderValidator = [
+    param('id').isInt()
+];
+
+export { createOrderValidator, updateOrderValidator, getOrDeleteOrderValidator };

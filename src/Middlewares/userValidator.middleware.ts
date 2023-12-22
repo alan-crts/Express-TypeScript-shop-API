@@ -4,7 +4,19 @@ import prisma from "../utils/database";
 const createUserValidator = [
   body("firstname").isString(),
   body("lastname").isString(),
-  body("email").isEmail(),
+  body("email").isEmail().custom(async (value) => {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: value,
+      },
+    });
+
+    if (user) {
+      return Promise.reject("Email already in use");
+    }
+
+    return true;
+  }),
   body("password").isLength({ min: 5 }),
   body("role").isIn(["USER", "ADMIN", "SUPERADMIN"]).optional(),
 ];
@@ -30,4 +42,8 @@ const updateUserValidator = [
   body("role").isIn(["USER", "ADMIN", "SUPERADMIN"]).optional(),
 ];
 
-export { createUserValidator, updateUserValidator };
+const getOrDeleteUserValidator = [
+  param("id").isInt()
+];
+
+export { createUserValidator, updateUserValidator, getOrDeleteUserValidator };

@@ -1,5 +1,6 @@
 import { body } from "express-validator";
 import prisma from "../utils/database";
+
 const signupValidator = [
     body("firstname").isString(),
     body("lastname").isString(),
