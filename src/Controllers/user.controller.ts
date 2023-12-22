@@ -100,16 +100,13 @@ export const deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const deletedUser = await prisma.user.delete({
+        await prisma.user.delete({
             where: {
                 id: Number(id),
             },
         });
-        
-        const userWithoutPassword : any = deletedUser;
-        delete userWithoutPassword.password;
 
-        res.send(userWithoutPassword);
+        res.status(204).send();
     } catch(error) {
         res.status(500).send(error);
     }
