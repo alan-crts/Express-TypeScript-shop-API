@@ -31,7 +31,7 @@ export const login = async (req: Request, res: Response) => {
             expiresIn: 86400
         });
 
-        res.send({ userWithoutPassword, token });
+        res.send({ user : userWithoutPassword, token });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -56,7 +56,7 @@ export const register = async (req: Request, res: Response) => {
 
         delete userWithoutPassword.password;
 
-        res.status(201).send(newUser);
+        res.status(201).send(userWithoutPassword);
     } catch (error) {
         res.status(500).send(error);
     }
