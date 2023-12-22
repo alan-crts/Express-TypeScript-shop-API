@@ -17,12 +17,12 @@ async function main() {
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(passport.initialize());
     app.use(morgan("combined"));
     app.use(helmet());
     
     authRoute(app);
 
+    app.use(passport.initialize());
     app.use(passport.authenticate('jwt', { session: false }));
 
     userRoute(app);
