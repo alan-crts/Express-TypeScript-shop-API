@@ -9,6 +9,7 @@ import productRoute from "./Routes/product.route";
 import orderRoute from "./Routes/order.route";
 import authRoute from "./Routes/auth.route";
 import userRoute from "./Routes/user.route";
+import helmet from "helmet";
 
 async function main() {
     const app = express();
@@ -18,7 +19,8 @@ async function main() {
     app.use(express.urlencoded({ extended: true }));
     app.use(passport.initialize());
     app.use(morgan("combined"));
-
+    app.use(helmet());
+    
     authRoute(app);
 
     app.use(passport.authenticate('jwt', { session: false }));
