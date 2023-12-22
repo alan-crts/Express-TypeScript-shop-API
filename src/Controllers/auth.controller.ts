@@ -14,13 +14,13 @@ export const login = async (req: Request, res: Response) => {
         });
 
         if (!user) {
-            return res.status(404).send('Invalid email or password');
+            return res.status(404).send({ message: `email or password incorrect` });
         }
 
         const isPasswordValid = bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
-            return res.status(401).send('Invalid email or password');
+            return res.status(401).send({ message: `email or password incorrect` });
         }
 
         const userWithoutPassword: any = user;
