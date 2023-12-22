@@ -6,7 +6,13 @@ export const listUsers = async (req: Request, res: Response) => {
     try {
         const users = await prisma.user.findMany({});
 
-        res.send(users);
+        const usersWithoutPassword = users.map((user) => {
+            const userWithoutPassword : any = user;
+            delete userWithoutPassword.password;
+            return userWithoutPassword;
+        });
+
+        res.send(usersWithoutPassword);
     } catch(error) {
         res.status(500).send(error);
     }
@@ -26,7 +32,10 @@ export const getUser = async (req: Request, res: Response) => {
             return res.status(404).send({ message: `User with id ${id} not found` });
         }
 
-        res.send(user);
+        const userWithoutPassword : any = user;
+        delete userWithoutPassword.password;
+        
+        res.send(userWithoutPassword);
     } catch(error) {
         res.status(500).send(error);
     }
@@ -34,10 +43,10 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, role } = req.body;
 
     try {
-        const encryptedPassword = await bcrypt.hash(password, 10);
+        const encryptedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
         const updatedUser = await prisma.user.update({
             where: {
@@ -48,10 +57,16 @@ export const updateUser = async (req: Request, res: Response) => {
                 lastname,
                 email,
                 password: encryptedPassword,
+                role,
             },
         });
-        res.send(updatedUser);
+
+        const userWithoutPassword : any = updatedUser;
+        delete userWithoutPassword.password;
+
+        res.send(userWithoutPassword);
     } catch(error) {
+        console.log(error);
         res.status(500).send(error);
     }
 }
@@ -65,8 +80,11 @@ export const deleteUser = async (req: Request, res: Response) => {
                 id: Number(id),
             },
         });
+        
+        const userWithoutPassword : any = deletedUser;
+        delete userWithoutPassword.password;
 
-        res.send(deletedUser);
+        res.send(userWithoutPassword);
     } catch(error) {
         res.status(500).send(error);
     }

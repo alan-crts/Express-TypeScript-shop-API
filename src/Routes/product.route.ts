@@ -1,10 +1,10 @@
-import express, { Application } from 'express';
+import express, { Router } from 'express';
 import { listProducts, getProduct, createProduct, updateProduct, deleteProduct } from '../Controllers/product.controller';
 import checkRole from '../Middlewares/checkRole.middleware';
 import { createProductValidator, updateProductValidator } from '../Middlewares/productValidator.middleware';
 import validate from '../Middlewares/validate.middleware';
 
-export default (app: Application) => {
+export default (app: Router) => {
     const productRouter = express.Router();
 
     productRouter.get('/', listProducts);

@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
         delete userWithoutPassword.password;
 
 
-        const token = jwt.sign({ userWithoutPassword }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ user : userWithoutPassword }, process.env.JWT_SECRET, {
             expiresIn: 86400
         });
 
