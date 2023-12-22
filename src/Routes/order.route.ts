@@ -15,6 +15,6 @@ export default (app: Router) => {
     orderRouter.get('/:id', getOrDeleteOrderValidator, validate, getOrder);
     orderRouter.put('/:id', updateOrderValidator, validate, updateOrder);
     orderRouter.delete('/:id', getOrDeleteOrderValidator, validate, deleteOrder);
-    
+
     app.use('/orders', orderRouter);
 }

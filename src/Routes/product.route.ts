@@ -15,6 +15,6 @@ export default (app: Router) => {
     productRouter.post('/', createProductValidator, validate, createProduct);
     productRouter.put('/:id', updateProductValidator, validate, updateProduct);
     productRouter.delete('/:id', getOrDeleteProductValidator, validate, deleteProduct);
-    
+
     app.use('/products', productRouter);
 }

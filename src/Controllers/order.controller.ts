@@ -12,7 +12,7 @@ export const listOrders = async (req: Request, res: Response) => {
                 }
             },
         });
-    
+
         res.send(orders);
     } catch (error) {
         res.status(500).send(error);
@@ -71,7 +71,7 @@ export const createOrder = async (req: Request, res: Response) => {
                 }
             },
         });
-        
+
         res.status(201).send(newOrder);
     } catch (error) {
         res.status(500).send(error);

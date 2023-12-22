@@ -20,7 +20,7 @@ async function main() {
     app.use(passport.initialize());
     app.use(morgan("combined"));
     app.use(helmet());
-    
+
     authRoute(app);
 
     app.use(passport.authenticate('jwt', { session: false }));
@@ -28,7 +28,7 @@ async function main() {
     userRoute(app);
     productRoute(app);
     orderRoute(app);
-    
+
     app.listen(port, () => {
         console.log(`Server listening on port ${port} 🚀`);
     });

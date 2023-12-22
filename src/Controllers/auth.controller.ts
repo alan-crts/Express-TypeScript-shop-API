@@ -23,15 +23,15 @@ export const login = async (req: Request, res: Response) => {
             return res.status(401).send('Invalid email or password');
         }
 
-        const userWithoutPassword : any = user;
+        const userWithoutPassword: any = user;
         delete userWithoutPassword.password;
 
 
-        const token = jwt.sign({ user : userWithoutPassword }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ user: userWithoutPassword }, process.env.JWT_SECRET, {
             expiresIn: 86400
         });
 
-        res.send({ user : userWithoutPassword, token });
+        res.send({ user: userWithoutPassword, token });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -52,7 +52,7 @@ export const register = async (req: Request, res: Response) => {
             },
         });
 
-        const userWithoutPassword : any = newUser;
+        const userWithoutPassword: any = newUser;
 
         delete userWithoutPassword.password;
 

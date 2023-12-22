@@ -7,9 +7,9 @@ const options = {
 };
 
 passport.use(
-    new JwtStrategy(options, async (payload : JwtPayload, done : VerifiedCallback) => {
+    new JwtStrategy(options, async (payload: JwtPayload, done: VerifiedCallback) => {
         try {
-            if(payload.user) {
+            if (payload.user) {
                 return done(null, payload.user);
             }
 

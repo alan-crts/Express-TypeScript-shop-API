@@ -7,13 +7,13 @@ export const listUsers = async (req: Request, res: Response) => {
         const users = await prisma.user.findMany({});
 
         const usersWithoutPassword = users.map((user) => {
-            const userWithoutPassword : any = user;
+            const userWithoutPassword: any = user;
             delete userWithoutPassword.password;
             return userWithoutPassword;
         });
 
         res.send(usersWithoutPassword);
-    } catch(error) {
+    } catch (error) {
         res.status(500).send(error);
     }
 }
@@ -28,15 +28,15 @@ export const getUser = async (req: Request, res: Response) => {
             },
         });
 
-        if(!user) {
+        if (!user) {
             return res.status(404).send({ message: `User with id ${id} not found` });
         }
 
-        const userWithoutPassword : any = user;
+        const userWithoutPassword: any = user;
         delete userWithoutPassword.password;
-        
+
         res.send(userWithoutPassword);
-    } catch(error) {
+    } catch (error) {
         res.status(500).send(error);
     }
 }
@@ -57,11 +57,11 @@ export const createUser = async (req: Request, res: Response) => {
             },
         });
 
-        const userWithoutPassword : any = newUser;
+        const userWithoutPassword: any = newUser;
         delete userWithoutPassword.password;
 
         res.status(201).send(userWithoutPassword);
-    } catch(error) {
+    } catch (error) {
         res.status(500).send(error);
     }
 }
@@ -86,11 +86,11 @@ export const updateUser = async (req: Request, res: Response) => {
             },
         });
 
-        const userWithoutPassword : any = updatedUser;
+        const userWithoutPassword: any = updatedUser;
         delete userWithoutPassword.password;
 
         res.send(userWithoutPassword);
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         res.status(500).send(error);
     }
@@ -107,7 +107,7 @@ export const deleteUser = async (req: Request, res: Response) => {
         });
 
         res.status(204).send();
-    } catch(error) {
+    } catch (error) {
         res.status(500).send(error);
     }
 }

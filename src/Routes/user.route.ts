@@ -1,4 +1,4 @@
-import express,{ Router }  from 'express';
+import express, { Router } from 'express';
 import { listUsers, getUser, updateUser, deleteUser, createUser } from '../Controllers/user.controller';
 import checkRole from '../Middlewares/checkRole.middleware';
 import validate from '../Middlewares/validate.middleware';
@@ -13,6 +13,6 @@ export default (app: Router) => {
     userRouter.post('/', createUserValidator, validate, createUser);
     userRouter.put('/:id', updateUserValidator, validate, updateUser);
     userRouter.delete('/:id', getOrDeleteUserValidator, validate, deleteUser);
-    
+
     app.use('/users', userRouter);
 }
